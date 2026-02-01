@@ -1,3 +1,4 @@
+/* Base */
 * {
   font-family:
     "Inter",
@@ -12,9 +13,11 @@
 :root {
   --mint: #9ef2d7;
   --lav: #b8a2ff;
+
   --text: #12131a;
   --muted: #5a5e6b;
   --border: rgba(18, 19, 26, 0.1);
+
   --shadow: 0 18px 50px rgba(18, 19, 26, 0.1);
   --radius: 18px;
   --radius-lg: 26px;
@@ -25,7 +28,39 @@
   backdrop-filter: blur(10px);
 }
 
-/* Botones */
+/* Brand (navbar) */
+.brand-logo {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+}
+.brand-text {
+  line-height: 1.15;
+}
+.brand-title {
+  font-weight: 800;
+  font-size: 16px;
+  color: var(--text);
+}
+.brand-subtitle {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+/* Mobile navbar fixes */
+@media (max-width: 576px) {
+  .navbar .container {
+    gap: 8px;
+  }
+  .navbar-brand {
+    max-width: 75%;
+  }
+  .brand-title {
+    font-size: 15px;
+  }
+}
+
+/* Buttons */
 .btn-brand {
   border: 1px solid var(--border);
   background: linear-gradient(
@@ -34,7 +69,7 @@
     rgba(184, 162, 255, 0.9)
   );
   color: #0b0c10;
-  font-weight: 700;
+  font-weight: 800;
   box-shadow: 0 12px 30px rgba(18, 19, 26, 0.1);
 }
 .btn-brand:hover {
@@ -44,13 +79,13 @@
 .btn-outline-soft {
   border: 1px solid var(--border);
   background: rgba(255, 255, 255, 0.7);
-  font-weight: 700;
+  font-weight: 800;
 }
 .btn-outline-soft:hover {
   background: rgba(184, 162, 255, 0.12);
 }
 
-/* HERO */
+/* Hero */
 .hero {
   position: relative;
   overflow: hidden;
@@ -88,36 +123,54 @@
   border-radius: 999px;
   border: 1px solid var(--border);
   background: rgba(255, 255, 255, 0.75);
-  font-weight: 600;
+  font-weight: 700;
   font-size: 13px;
   color: rgba(18, 19, 26, 0.75);
 }
 
-/* Foto sin deformarse */
-.photo-card {
-  width: min(420px, 100%);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
+/* Panel de marca (reemplaza foto) */
+.brand-panel {
+  width: min(460px, 100%);
+  border-radius: calc(var(--radius-lg) + 8px);
   border: 1px solid var(--border);
+  background:
+    radial-gradient(
+      circle at 15% 25%,
+      rgba(158, 242, 215, 0.22),
+      transparent 55%
+    ),
+    radial-gradient(
+      circle at 80% 20%,
+      rgba(184, 162, 255, 0.22),
+      transparent 55%
+    ),
+    rgba(255, 255, 255, 0.78);
   box-shadow: var(--shadow);
-  background: white;
 }
-.img-fit {
-  width: 100%;
-  height: 100%;
-  object-fit: cover; /* clave */
-  object-position: center;
-  display: block;
+.brand-panel-inner {
+  padding: 22px;
+  text-align: center;
+}
+.brand-panel-logo {
+  width: 96px;
+  height: 96px;
+  border-radius: 22px;
+  object-fit: contain;
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid rgba(18, 19, 26, 0.08);
+  margin: 0 auto;
 }
 
+/* Stamp */
 .stamp {
-  width: min(420px, 100%);
+  width: 100%;
   display: flex;
   gap: 10px;
   align-items: center;
+  justify-content: center;
   padding: 12px 14px;
   border-radius: 16px;
-  border: 1px solid var(--border);
+  border: 1px solid rgba(18, 19, 26, 0.1);
   background: rgba(255, 255, 255, 0.72);
 }
 .stamp-dot {
@@ -127,7 +180,18 @@
   background: linear-gradient(135deg, var(--mint), var(--lav));
 }
 
-/* Secciones */
+/* Note */
+.note {
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: rgba(184, 162, 255, 0.12);
+  border: 1px solid rgba(184, 162, 255, 0.3);
+  color: rgba(18, 19, 26, 0.85);
+  font-size: 14px;
+  text-align: left;
+}
+
+/* Section backgrounds */
 .section-alt {
   background:
     radial-gradient(
@@ -142,7 +206,7 @@
     );
 }
 
-/* Cards */
+/* Soft cards */
 .card-soft {
   border: 1px solid var(--border);
   border-radius: var(--radius);
@@ -161,14 +225,14 @@
 .mini-title {
   font-size: 12px;
   color: var(--muted);
-  font-weight: 700;
+  font-weight: 800;
 }
 .mini-text {
-  font-weight: 800;
+  font-weight: 900;
   margin-top: 4px;
 }
 
-/* Modes */
+/* Mode rows */
 .mode {
   display: grid;
   grid-template-columns: 44px 1fr;
@@ -193,16 +257,6 @@
   border: 1px solid rgba(18, 19, 26, 0.08);
 }
 
-/* Note */
-.note {
-  padding: 12px 14px;
-  border-radius: 16px;
-  background: rgba(184, 162, 255, 0.12);
-  border: 1px solid rgba(184, 162, 255, 0.3);
-  color: rgba(18, 19, 26, 0.85);
-  font-size: 14px;
-}
-
 /* Timeline */
 .timeline {
   display: grid;
@@ -220,12 +274,12 @@
 }
 .time {
   font-size: 13px;
-  font-weight: 800;
+  font-weight: 900;
   color: var(--muted);
   padding-top: 4px;
 }
 
-/* Timeline mobile fix */
+/* Timeline mobile */
 @media (max-width: 768px) {
   .timeline-item {
     grid-template-columns: 1fr;
@@ -270,7 +324,7 @@
 }
 .badge-title {
   font-size: 12px;
-  font-weight: 800;
+  font-weight: 900;
   color: var(--muted);
 }
 .badge-value {
@@ -278,6 +332,7 @@
   font-weight: 900;
 }
 
+/* Contact responsive */
 @media (max-width: 992px) {
   .contact-card {
     grid-template-columns: 1fr;

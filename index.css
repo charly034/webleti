@@ -1,9 +1,11 @@
 /* =========================================================
-   PRO CSS - Lic. Leticia Lisanti (Bootstrap + Mobile First)
-   Fix capas: texto + tarjeta siempre arriba del degradé
+   PRO CSS - Bootstrap + Mobile First
+   Fix capas: texto + tarjeta arriba del degradé
+   + resumen 1 línea por experiencia
+   + logo hero sin recorte
+   + favicon en HTML
    ========================================================= */
 
-/* Base */
 * {
   font-family:
     "Inter",
@@ -29,15 +31,17 @@
   --radius-lg: 26px;
 }
 
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 90px;
+}
+
 /* Navbar blur */
 .backdrop-blur {
   backdrop-filter: blur(10px);
 }
 
-/* =========================================================
-   NAVBAR (Mobile-first sin desorden)
-   ========================================================= */
-
+/* ===== NAVBAR ===== */
 .brand-logo {
   width: 40px;
   height: 40px;
@@ -46,7 +50,7 @@
 
 .brand-text {
   line-height: 1.15;
-  min-width: 0; /* permite truncar en mobile */
+  min-width: 0;
 }
 
 .brand-title {
@@ -56,7 +60,7 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 46vw; /* evita empujar el toggler */
+  max-width: 46vw;
 }
 
 .brand-subtitle {
@@ -68,27 +72,20 @@
   .navbar .container {
     gap: 8px;
   }
-
   .navbar-brand {
     max-width: 78%;
   }
-
   .brand-title {
     font-size: 15px;
     max-width: 52vw;
   }
-
-  /* Nav desplegado: aire y botones full */
   .navbar-nav .nav-link {
     padding: 10px 8px;
     border-radius: 12px;
   }
 }
 
-/* =========================================================
-   BUTTONS
-   ========================================================= */
-
+/* Buttons */
 .btn-brand {
   border: 1px solid var(--border);
   background: linear-gradient(
@@ -100,7 +97,6 @@
   font-weight: 800;
   box-shadow: 0 12px 30px rgba(18, 19, 26, 0.1);
 }
-
 .btn-brand:hover {
   transform: translateY(-1px);
 }
@@ -110,39 +106,30 @@
   background: rgba(255, 255, 255, 0.7);
   font-weight: 800;
 }
-
 .btn-outline-soft:hover {
   background: rgba(184, 162, 255, 0.12);
 }
 
-/* Helper: Bootstrap no trae w-lg-auto */
+/* Bootstrap helper */
 @media (min-width: 992px) {
   .w-lg-auto {
     width: auto !important;
   }
 }
 
-/* =========================================================
-   HERO (CAPAS PRO: fondo atrás, contenido arriba)
-   ========================================================= */
-
+/* ===== HERO (capas PRO) ===== */
 .hero {
   position: relative;
   overflow: hidden;
-
-  /* CLAVE: aísla el stacking context y evita overlays raros */
   isolation: isolate;
 }
 
-/* Fondo del hero: SIEMPRE atrás */
 .hero-bg {
   position: absolute;
   inset: -220px -220px auto -220px;
   height: 560px;
-
   z-index: 0;
   pointer-events: none;
-
   background:
     radial-gradient(
       circle at 12% 38%,
@@ -159,18 +146,10 @@
       rgba(158, 242, 215, 0.18),
       transparent 55%
     );
-
-  /* Opcional pro: hace que sea más “fondo” */
   opacity: 0.95;
 }
 
-/* Todo el contenido del hero por encima del fondo */
-.hero .container {
-  position: relative;
-  z-index: 2;
-}
-
-/* Por las dudas: row también arriba */
+.hero .container,
 .hero .row {
   position: relative;
   z-index: 2;
@@ -186,27 +165,13 @@
   color: rgba(18, 19, 26, 0.75);
 }
 
-/* Para que el texto tenga buen contraste */
-.hero h1 {
-  color: rgba(18, 19, 26, 0.92);
-}
-
-.hero .lead {
-  color: rgba(90, 94, 107, 0.95);
-}
-
-/* =========================================================
-   BRAND PANEL (Tarjeta del hero arriba de TODO)
-   ========================================================= */
-
+/* ===== Panel de marca (arriba de todo) ===== */
 .brand-panel {
   position: relative;
-  z-index: 3; /* arriba del texto y del degradé */
-
+  z-index: 3;
   width: min(460px, 100%);
   border-radius: calc(var(--radius-lg) + 8px);
   border: 1px solid var(--border);
-
   background:
     radial-gradient(
       circle at 15% 25%,
@@ -218,8 +183,7 @@
       rgba(184, 162, 255, 0.22),
       transparent 55%
     ),
-    rgba(255, 255, 255, 0.86);
-
+    rgba(255, 255, 255, 0.88);
   box-shadow: var(--shadow);
 }
 
@@ -228,14 +192,18 @@
   text-align: center;
 }
 
-.brand-panel-logo {
-  width: 96px;
-  height: 96px;
+/* LOGO HERO SIN RECORTE */
+.brand-hero-logo-wrap {
+  padding: 12px 14px;
   border-radius: 22px;
-  object-fit: contain;
-
   background: rgba(255, 255, 255, 0.78);
   border: 1px solid rgba(18, 19, 26, 0.08);
+}
+
+.brand-hero-logo {
+  width: min(260px, 100%);
+  height: auto; /* clave: no recorta */
+  display: block;
   margin: 0 auto;
 }
 
@@ -246,7 +214,6 @@
   gap: 10px;
   align-items: center;
   justify-content: center;
-
   padding: 12px 14px;
   border-radius: 16px;
   border: 1px solid rgba(18, 19, 26, 0.1);
@@ -271,10 +238,7 @@
   text-align: left;
 }
 
-/* =========================================================
-   SECTIONS
-   ========================================================= */
-
+/* Sections */
 .section-alt {
   background:
     radial-gradient(
@@ -289,10 +253,7 @@
     );
 }
 
-/* =========================================================
-   CARDS
-   ========================================================= */
-
+/* Cards */
 .card-soft {
   border: 1px solid var(--border);
   border-radius: var(--radius);
@@ -320,10 +281,7 @@
   margin-top: 4px;
 }
 
-/* =========================================================
-   MODES
-   ========================================================= */
-
+/* Mode rows */
 .mode {
   display: grid;
   grid-template-columns: 44px 1fr;
@@ -349,10 +307,7 @@
   border: 1px solid rgba(18, 19, 26, 0.08);
 }
 
-/* =========================================================
-   TIMELINE
-   ========================================================= */
-
+/* Timeline */
 .timeline {
   display: grid;
   gap: 12px;
@@ -360,10 +315,9 @@
 
 .timeline-item {
   display: grid;
-  grid-template-columns: 160px 1fr;
+  grid-template-columns: 170px 1fr;
   gap: 14px;
   padding: 16px;
-
   border: 1px solid var(--border);
   border-radius: var(--radius);
   background: rgba(255, 255, 255, 0.86);
@@ -377,6 +331,17 @@
   padding-top: 4px;
 }
 
+/* ✅ Mini resumen: 1 línea y elegante (ideal mobile) */
+.exp-summary {
+  color: rgba(90, 94, 107, 0.95);
+  font-size: 14px;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
 /* Timeline mobile */
 @media (max-width: 768px) {
   .timeline-item {
@@ -387,19 +352,14 @@
   }
 }
 
-/* =========================================================
-   CONTACT
-   ========================================================= */
-
+/* Contact */
 .contact-card {
   display: grid;
   grid-template-columns: 1.2fr 0.8fr;
   gap: 14px;
   padding: 18px;
-
   border-radius: calc(var(--radius-lg) + 6px);
   border: 1px solid var(--border);
-
   background:
     radial-gradient(
       circle at 10% 30%,
@@ -412,7 +372,6 @@
       transparent 55%
     ),
     rgba(255, 255, 255, 0.86);
-
   box-shadow: var(--shadow);
 }
 
@@ -440,18 +399,8 @@
   font-weight: 900;
 }
 
-/* Contact responsive */
 @media (max-width: 992px) {
   .contact-card {
     grid-template-columns: 1fr;
   }
-}
-
-/* =========================================================
-   OPTIONAL: Improve anchor scroll (sticky header)
-   ========================================================= */
-
-html {
-  scroll-behavior: smooth;
-  scroll-padding-top: 90px; /* evita que el navbar tape el título */
 }

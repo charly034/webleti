@@ -1,3 +1,8 @@
+/* =========================================================
+   PRO CSS - Lic. Leticia Lisanti (Bootstrap + Mobile First)
+   Fix capas: texto + tarjeta siempre arriba del degradé
+   ========================================================= */
+
 /* Base */
 * {
   font-family:
@@ -16,9 +21,10 @@
 
   --text: #12131a;
   --muted: #5a5e6b;
-  --border: rgba(18, 19, 26, 0.1);
 
+  --border: rgba(18, 19, 26, 0.1);
   --shadow: 0 18px 50px rgba(18, 19, 26, 0.1);
+
   --radius: 18px;
   --radius-lg: 26px;
 }
@@ -28,39 +34,61 @@
   backdrop-filter: blur(10px);
 }
 
-/* Brand (navbar) */
+/* =========================================================
+   NAVBAR (Mobile-first sin desorden)
+   ========================================================= */
+
 .brand-logo {
   width: 40px;
   height: 40px;
   border-radius: 12px;
 }
+
 .brand-text {
   line-height: 1.15;
+  min-width: 0; /* permite truncar en mobile */
 }
+
 .brand-title {
   font-weight: 800;
   font-size: 16px;
   color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 46vw; /* evita empujar el toggler */
 }
+
 .brand-subtitle {
   font-size: 13px;
   color: #6b7280;
 }
 
-/* Mobile navbar fixes */
 @media (max-width: 576px) {
   .navbar .container {
     gap: 8px;
   }
+
   .navbar-brand {
-    max-width: 75%;
+    max-width: 78%;
   }
+
   .brand-title {
     font-size: 15px;
+    max-width: 52vw;
+  }
+
+  /* Nav desplegado: aire y botones full */
+  .navbar-nav .nav-link {
+    padding: 10px 8px;
+    border-radius: 12px;
   }
 }
 
-/* Buttons */
+/* =========================================================
+   BUTTONS
+   ========================================================= */
+
 .btn-brand {
   border: 1px solid var(--border);
   background: linear-gradient(
@@ -72,6 +100,7 @@
   font-weight: 800;
   box-shadow: 0 12px 30px rgba(18, 19, 26, 0.1);
 }
+
 .btn-brand:hover {
   transform: translateY(-1px);
 }
@@ -81,41 +110,70 @@
   background: rgba(255, 255, 255, 0.7);
   font-weight: 800;
 }
+
 .btn-outline-soft:hover {
   background: rgba(184, 162, 255, 0.12);
 }
 
-/* Hero */
+/* Helper: Bootstrap no trae w-lg-auto */
+@media (min-width: 992px) {
+  .w-lg-auto {
+    width: auto !important;
+  }
+}
+
+/* =========================================================
+   HERO (CAPAS PRO: fondo atrás, contenido arriba)
+   ========================================================= */
+
 .hero {
   position: relative;
   overflow: hidden;
+
+  /* CLAVE: aísla el stacking context y evita overlays raros */
+  isolation: isolate;
 }
+
+/* Fondo del hero: SIEMPRE atrás */
 .hero-bg {
   position: absolute;
-  inset: -200px -200px auto -200px;
-  height: 520px;
+  inset: -220px -220px auto -220px;
+  height: 560px;
+
   z-index: 0;
   pointer-events: none;
+
   background:
     radial-gradient(
-      circle at 15% 35%,
+      circle at 12% 38%,
       rgba(158, 242, 215, 0.45),
-      transparent 55%
+      transparent 56%
     ),
     radial-gradient(
-      circle at 65% 25%,
+      circle at 68% 22%,
       rgba(184, 162, 255, 0.45),
-      transparent 55%
+      transparent 58%
     ),
     radial-gradient(
-      circle at 50% 90%,
-      rgba(158, 242, 215, 0.2),
+      circle at 50% 92%,
+      rgba(158, 242, 215, 0.18),
       transparent 55%
     );
+
+  /* Opcional pro: hace que sea más “fondo” */
+  opacity: 0.95;
 }
+
+/* Todo el contenido del hero por encima del fondo */
 .hero .container {
   position: relative;
-  z-index: 1;
+  z-index: 2;
+}
+
+/* Por las dudas: row también arriba */
+.hero .row {
+  position: relative;
+  z-index: 2;
 }
 
 .pill {
@@ -128,11 +186,27 @@
   color: rgba(18, 19, 26, 0.75);
 }
 
-/* Panel de marca (reemplaza foto) */
+/* Para que el texto tenga buen contraste */
+.hero h1 {
+  color: rgba(18, 19, 26, 0.92);
+}
+
+.hero .lead {
+  color: rgba(90, 94, 107, 0.95);
+}
+
+/* =========================================================
+   BRAND PANEL (Tarjeta del hero arriba de TODO)
+   ========================================================= */
+
 .brand-panel {
+  position: relative;
+  z-index: 3; /* arriba del texto y del degradé */
+
   width: min(460px, 100%);
   border-radius: calc(var(--radius-lg) + 8px);
   border: 1px solid var(--border);
+
   background:
     radial-gradient(
       circle at 15% 25%,
@@ -144,19 +218,23 @@
       rgba(184, 162, 255, 0.22),
       transparent 55%
     ),
-    rgba(255, 255, 255, 0.78);
+    rgba(255, 255, 255, 0.86);
+
   box-shadow: var(--shadow);
 }
+
 .brand-panel-inner {
   padding: 22px;
   text-align: center;
 }
+
 .brand-panel-logo {
   width: 96px;
   height: 96px;
   border-radius: 22px;
   object-fit: contain;
-  background: rgba(255, 255, 255, 0.75);
+
+  background: rgba(255, 255, 255, 0.78);
   border: 1px solid rgba(18, 19, 26, 0.08);
   margin: 0 auto;
 }
@@ -168,11 +246,13 @@
   gap: 10px;
   align-items: center;
   justify-content: center;
+
   padding: 12px 14px;
   border-radius: 16px;
   border: 1px solid rgba(18, 19, 26, 0.1);
-  background: rgba(255, 255, 255, 0.72);
+  background: rgba(255, 255, 255, 0.74);
 }
+
 .stamp-dot {
   width: 12px;
   height: 12px;
@@ -191,7 +271,10 @@
   text-align: left;
 }
 
-/* Section backgrounds */
+/* =========================================================
+   SECTIONS
+   ========================================================= */
+
 .section-alt {
   background:
     radial-gradient(
@@ -206,11 +289,14 @@
     );
 }
 
-/* Soft cards */
+/* =========================================================
+   CARDS
+   ========================================================= */
+
 .card-soft {
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.86);
   box-shadow: 0 10px 30px rgba(18, 19, 26, 0.07);
   padding: 18px;
 }
@@ -220,19 +306,24 @@
   border: 1px solid var(--border);
   border-radius: 16px;
   padding: 12px;
-  background: rgba(255, 255, 255, 0.75);
+  background: rgba(255, 255, 255, 0.8);
 }
+
 .mini-title {
   font-size: 12px;
   color: var(--muted);
-  font-weight: 800;
+  font-weight: 900;
 }
+
 .mini-text {
   font-weight: 900;
   margin-top: 4px;
 }
 
-/* Mode rows */
+/* =========================================================
+   MODES
+   ========================================================= */
+
 .mode {
   display: grid;
   grid-template-columns: 44px 1fr;
@@ -241,8 +332,9 @@
   padding: 12px;
   border: 1px solid var(--border);
   border-radius: 16px;
-  background: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.78);
 }
+
 .mode-icon {
   width: 44px;
   height: 44px;
@@ -257,21 +349,27 @@
   border: 1px solid rgba(18, 19, 26, 0.08);
 }
 
-/* Timeline */
+/* =========================================================
+   TIMELINE
+   ========================================================= */
+
 .timeline {
   display: grid;
   gap: 12px;
 }
+
 .timeline-item {
   display: grid;
   grid-template-columns: 160px 1fr;
   gap: 14px;
   padding: 16px;
+
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.86);
   box-shadow: 0 10px 30px rgba(18, 19, 26, 0.07);
 }
+
 .time {
   font-size: 13px;
   font-weight: 900;
@@ -289,14 +387,19 @@
   }
 }
 
-/* Contact */
+/* =========================================================
+   CONTACT
+   ========================================================= */
+
 .contact-card {
   display: grid;
   grid-template-columns: 1.2fr 0.8fr;
   gap: 14px;
   padding: 18px;
+
   border-radius: calc(var(--radius-lg) + 6px);
   border: 1px solid var(--border);
+
   background:
     radial-gradient(
       circle at 10% 30%,
@@ -308,25 +411,30 @@
       rgba(184, 162, 255, 0.25),
       transparent 55%
     ),
-    rgba(255, 255, 255, 0.78);
+    rgba(255, 255, 255, 0.86);
+
   box-shadow: var(--shadow);
 }
+
 .contact-badges {
   display: grid;
   gap: 10px;
   align-content: start;
 }
+
 .badge-soft {
   padding: 12px 14px;
   border-radius: 16px;
   border: 1px solid var(--border);
-  background: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.8);
 }
+
 .badge-title {
   font-size: 12px;
   font-weight: 900;
   color: var(--muted);
 }
+
 .badge-value {
   margin-top: 4px;
   font-weight: 900;
@@ -337,4 +445,13 @@
   .contact-card {
     grid-template-columns: 1fr;
   }
+}
+
+/* =========================================================
+   OPTIONAL: Improve anchor scroll (sticky header)
+   ========================================================= */
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 90px; /* evita que el navbar tape el título */
 }
